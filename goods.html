@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Goods</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Your Saved Goods</h1>
+    <div id="saved-goods-container"></div>
+    <a href="index.html" class="back-to-main">Back to Main</a>
+    <script>
+        let savedGoodsContainer = document.getElementById("saved-goods-container");
+        function displaySavedGoods() {
+            let savedGoods = JSON.parse(localStorage.getItem("savedGoods")) || [];
+            if (savedGoods.length === 0) {
+                savedGoodsContainer.innerHTML = "<p>No goods saved yet!</p>";
+            } else {
+                savedGoods.forEach((good) => {
+                    const box = document.createElement("div");
+                    box.classList.add("good-box");
+                    box.innerHTML = `
+                        <p>${good.product_name}</p>
+                        <p>${good.product_description}</p>
+                        <p>Price: ${good.product_price} AZN</p>
+                        <p>Store: ${good.store_name}</p>
+                        <p>Address: ${good.store_address}</p>
+                    `;
+                    savedGoodsContainer.appendChild(box);
+                });
+            }
+        }
+
+        displaySavedGoods();
+    </script>
+</body>
+</html>
